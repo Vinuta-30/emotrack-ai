@@ -7,6 +7,7 @@ import Assessment from "./pages/Assessment";
 import Results from "./pages/Results";
 import Recommendations from "./pages/Recommendations";
 import History from "./pages/History";
+import Insights from "./pages/Insights";
 
 function App() {
 
@@ -44,7 +45,10 @@ function App() {
             element={<History />}
           />
 
+           <Route path="/insights" element={<Insights />} />
+
         </Routes>
+       
 
       </main>
 

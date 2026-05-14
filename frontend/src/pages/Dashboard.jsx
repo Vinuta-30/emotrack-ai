@@ -1,22 +1,35 @@
-import Topbar from "../components/Topbar"
-import HeroSection from "../components/HeroSection"
-import FeatureCards from "../components/FeatureCards"
-import QuickActions from "../components/QuickActions"
+import Topbar from "../components/Topbar";
+import HeroSection from "../components/HeroSection";
+import FeatureCards from "../components/FeatureCards";
+import QuickActions from "../components/QuickActions";
 
 function Dashboard() {
+
   return (
-    <div className="max-w-[1350px] mx-auto space-y-8">
 
-  <Topbar />
+    <div className="w-full max-w-[1350px] mx-auto">
 
-  <HeroSection />
+      {/* TOPBAR */}
+      <Topbar />
 
-  <FeatureCards />
+      {/* HERO */}
+      <div className="mt-5">
+        <HeroSection />
+      </div>
 
-  <QuickActions />
+      {/* FEATURE CARDS */}
+      <div className="mt-6">
+        <FeatureCards />
+      </div>
 
-</div>
-  )
+      {/* QUICK ACTIONS */}
+      <div className="mt-6 pb-8">
+        <QuickActions />
+      </div>
+
+    </div>
+
+  );
 }
 
-export default Dashboard
+export default Dashboard;

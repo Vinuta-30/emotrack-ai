@@ -1,148 +1,405 @@
+import { useRef } from "react";
+import { useState } from "react";
+
 function Assessment() {
+
+  const [currentStep, setCurrentStep] = useState(0);
+  const videoRef = useRef(null);
+  const [emotion, setEmotion] = useState("");
+const [confidence, setConfidence] = useState("");
+const [analyzing, setAnalyzing] = useState(false);
+
+  const steps = [
+    {
+      title: "Face Analysis",
+      icon: "😊",
+      heading: "Face Emotion Analysis",
+      desc: "We analyze facial expressions and emotions.",
+    },
+
+    {
+      title: "Voice Analysis",
+      icon: "🎤",
+      heading: "Voice Emotion Analysis",
+      desc: "We analyze voice tone and speaking patterns.",
+    },
+
+    {
+      title: "Questionnaire",
+      icon: "⌨️",
+      heading: "Questionnaire (Typing Behavior)",
+      desc: "We analyze typing behavior while you answer.",
+    },
+
+    {
+      title: "Pulse Rate",
+      icon: "💓",
+      heading: "Pulse Rate Analysis",
+      desc: "We monitor heart rate and stress indicators.",
+    },
+
+    {
+      title: "Results",
+      icon: "📋",
+      heading: "Generating Results",
+      desc: "Preparing emotional wellness insights.",
+    },
+  ];
+
+const nextStep = () => {
+
+  if (currentStep < steps.length - 1) {
+
+    setCurrentStep(currentStep + 1);
+
+  } else {
+
+    window.location.href = "/results";
+
+  }
+
+};
+const startCamera = async () => {
+
+  try {
+
+    const stream = await navigator.mediaDevices.getUserMedia({
+      video: true,
+    });
+
+    if (videoRef.current) {
+      videoRef.current.srcObject = stream;
+    }
+
+    setAnalyzing(true);
+
+    setTimeout(() => {
+
+  const emotions = [
+    { mood: "Happy 😊", confidence: "92%" },
+    { mood: "Neutral 😐", confidence: "87%" },
+    { mood: "Sad 😔", confidence: "84%" },
+    { mood: "Angry 😠", confidence: "89%" },
+    { mood: "Surprised 😲", confidence: "91%" },
+  ];
+
+  const randomEmotion =
+    emotions[Math.floor(Math.random() * emotions.length)];
+
+  setEmotion(randomEmotion.mood);
+  setConfidence(randomEmotion.confidence);
+
+  setAnalyzing(false);
+
+}, 3000);
+
+  } catch (error) {
+
+    console.log(error);
+
+  }
+
+};
+
   return (
-    <div className="flex-1 overflow-y-auto p-10 py-8 max-w-[1600px] mx-auto w-full">
 
-      <div className="flex items-center gap-2 text-gray-500 cursor-pointer">
-        ← Back
-      </div>
+    <div className="max-w-[1320px] mx-auto py-6">
 
-      <h1 className="mt-6 text-4xl font-bold text-gray-800">
-        Assessment in Progress
-      </h1>
+      {/* HEADER */}
+      <div>
 
-      <p className="mt-2 text-gray-500 text-lg">
-        Complete all sections to generate your wellness insights.
-      </p>
+        <button className="text-gray-500 mb-5">
+          ← Back
+        </button>
 
-      {/* Progress Steps */}
+        <h1 className="text-[38px] font-bold text-gray-800">
+          Assessment in Progress
+        </h1>
 
-      <div className="mt-10 flex items-center justify-between bg-white rounded-3xl p-8 shadow-sm">
-
-        <div className="flex flex-col items-center">
-          <div className="w-14 h-14 rounded-full bg-purple-100 flex items-center justify-center text-2xl">
-            😊
-          </div>
-
-          <p className="mt-3 font-medium text-gray-700">
-            Face
-          </p>
-        </div>
-
-        <div className="h-1 flex-1 bg-gray-200 mx-4 rounded-full"></div>
-
-        <div className="flex flex-col items-center">
-          <div className="w-14 h-14 rounded-full bg-green-100 flex items-center justify-center text-2xl">
-            🎤
-          </div>
-
-          <p className="mt-3 font-medium text-gray-700">
-            Voice
-          </p>
-        </div>
-
-        <div className="h-1 flex-1 bg-gray-200 mx-4 rounded-full"></div>
-
-        <div className="flex flex-col items-center">
-          <div className="w-14 h-14 rounded-full bg-blue-100 flex items-center justify-center text-2xl">
-            ⌨️
-          </div>
-
-          <p className="mt-3 font-medium text-gray-700">
-            Questionnaire
-          </p>
-        </div>
-
-        <div className="h-1 flex-1 bg-gray-200 mx-4 rounded-full"></div>
-
-        <div className="flex flex-col items-center">
-          <div className="w-14 h-14 rounded-full bg-orange-100 flex items-center justify-center text-2xl">
-            ❤️
-          </div>
-
-          <p className="mt-3 font-medium text-gray-700">
-            Pulse
-          </p>
-        </div>
-
-      </div>
-
-      {/* Question Card */}
-
-      <div className="mt-10 bg-white rounded-3xl p-10 shadow-sm">
-
-        <h2 className="text-2xl font-bold text-gray-800">
-          Questionnaire (Analyzing Typing Behavior)
-        </h2>
-
-        <p className="mt-3 text-gray-500">
-          We analyze typing behavior while you answer.
+        <p className="text-gray-500 mt-2">
+          Complete all sections to generate your wellness insights.
         </p>
 
-        <div className="mt-8">
+      </div>
 
-          <p className="text-lg font-semibold text-gray-700">
-            How have you been feeling mentally in the past few days?
-          </p>
+      {/* STEPS */}
+      <div className="mt-10 flex items-center justify-between">
 
-          <textarea
-            className="mt-5 w-full h-40 border border-gray-200 rounded-2xl p-5 outline-none focus:ring-2 focus:ring-purple-400 resize-none"
-            placeholder="Type your answer here..."
-          ></textarea>
+        {steps.map((step, index) => (
+
+          <div
+            key={index}
+            className="flex flex-col items-center flex-1 relative"
+          >
+
+            <div
+              className={`
+              w-16 h-16 rounded-full border-2 flex items-center justify-center text-2xl transition
+              ${
+                index <= currentStep
+                  ? "bg-[#f3edff] border-[#7c3aed]"
+                  : "bg-white border-gray-200"
+              }
+              `}
+            >
+
+              {step.icon}
+
+            </div>
+
+            <p className="mt-4 text-sm text-center font-medium text-gray-700">
+              {step.title}
+            </p>
+
+            {index !== steps.length - 1 && (
+
+              <div
+                className={`
+                absolute top-8 left-[55%] w-full h-[2px]
+                ${
+                  index < currentStep
+                    ? "bg-[#7c3aed]"
+                    : "bg-purple-200"
+                }
+                `}
+              ></div>
+
+            )}
+
+          </div>
+
+        ))}
+
+      </div>
+
+      {/* CARD */}
+      <div className="mt-12 bg-white rounded-[32px] p-8 shadow-sm border border-gray-100">
+
+        <div className="flex items-center justify-between">
+
+          <div>
+
+            <h2 className="text-2xl font-semibold text-gray-800">
+
+              {steps[currentStep].heading}
+
+            </h2>
+
+            <p className="text-gray-500 mt-2">
+
+              {steps[currentStep].desc}
+
+            </p>
+
+          </div>
+
+          <div className="bg-[#f8f8fc] px-5 py-2 rounded-full text-sm text-gray-500">
+
+            Step {currentStep + 1} of {steps.length}
+
+          </div>
 
         </div>
 
-        <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="mt-10">
 
-          <div className="bg-gray-50 rounded-2xl p-5">
+  {currentStep === 0 ? (
+
+    <div>
+
+      <h3 className="text-xl font-semibold text-gray-800">
+        Face Emotion Detection
+      </h3>
+
+      <p className="text-gray-500 mt-2">
+        Start camera to analyze facial emotions.
+      </p>
+
+      <div className="mt-6 bg-black rounded-[24px] overflow-hidden h-[350px] flex items-center justify-center">
+
+        <video
+          ref={videoRef}
+          autoPlay
+          playsInline
+          className="w-full h-full object-cover"
+        />
+
+      </div>
+
+      <button
+        onClick={startCamera}
+        className="
+        mt-6
+        bg-[#7c3aed]
+        hover:bg-[#6d28d9]
+        text-white
+        px-6
+        py-3
+        rounded-2xl
+        font-medium
+        "
+      >
+
+        Start Camera
+
+      </button>
+      {analyzing && (
+
+  <div className="mt-6 bg-[#f8f8fc] rounded-2xl p-5">
+
+    <p className="text-[#7c3aed] font-medium">
+      Analyzing facial emotions...
+    </p>
+
+  </div>
+
+)}
+
+{emotion && (
+
+  <div className="mt-6 bg-[#f8f8fc] rounded-2xl p-6 border border-purple-100">
+
+    <h3 className="text-lg font-semibold text-gray-800">
+      Detection Result
+    </h3>
+
+    <div className="mt-4 space-y-2">
+
+      <p className="text-gray-700">
+        <span className="font-semibold">
+          Emotion:
+        </span>{" "}
+        {emotion}
+      </p>
+
+      <p className="text-gray-700">
+        <span className="font-semibold">
+          Confidence:
+        </span>{" "}
+        {confidence}
+      </p>
+
+    </div>
+
+  </div>
+
+)}
+
+    </div>
+
+  ) : (
+
+    <div>
+
+      <h3 className="text-xl font-semibold text-gray-800">
+
+        How have you been feeling mentally in the past few days?
+
+      </h3>
+
+      <textarea
+        placeholder="Type your answer here..."
+        className="
+        w-full
+        mt-6
+        border
+        border-gray-200
+        rounded-[24px]
+        p-6
+        outline-none
+        min-h-[180px]
+        resize-none
+        "
+      />
+
+    </div>
+
+  )}
+
+</div>
+
+        {/* METRICS */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 mt-10">
+
+          <div className="bg-[#f8f8fc] rounded-2xl p-5">
+
             <p className="text-gray-400 text-sm">
               Typing Speed
             </p>
 
-            <h3 className="mt-2 text-2xl font-bold text-gray-800">
-              98 WPM
+            <h3 className="text-3xl font-bold text-gray-800 mt-2">
+              100 WPM
             </h3>
+
           </div>
 
-          <div className="bg-gray-50 rounded-2xl p-5">
+          <div className="bg-[#f8f8fc] rounded-2xl p-5">
+
             <p className="text-gray-400 text-sm">
               Error Rate
             </p>
 
-            <h3 className="mt-2 text-2xl font-bold text-gray-800">
+            <h3 className="text-3xl font-bold text-gray-800 mt-2">
               3%
             </h3>
+
           </div>
 
-          <div className="bg-gray-50 rounded-2xl p-5">
+          <div className="bg-[#f8f8fc] rounded-2xl p-5">
+
             <p className="text-gray-400 text-sm">
               Backspaces
             </p>
 
-            <h3 className="mt-2 text-2xl font-bold text-gray-800">
+            <h3 className="text-3xl font-bold text-gray-800 mt-2">
               18
             </h3>
+
           </div>
 
-          <div className="bg-gray-50 rounded-2xl p-5">
+          <div className="bg-[#f8f8fc] rounded-2xl p-5">
+
             <p className="text-gray-400 text-sm">
               Hesitation Time
             </p>
 
-            <h3 className="mt-2 text-2xl font-bold text-gray-800">
+            <h3 className="text-3xl font-bold text-gray-800 mt-2">
               1.2s
             </h3>
+
           </div>
 
         </div>
 
-        <button className="mt-8 bg-purple-600 hover:bg-purple-700 transition text-white px-7 py-3 rounded-2xl text-lg font-medium">
-          Next Question →
-        </button>
+        {/* BUTTON */}
+        <div className="flex justify-end mt-10">
+
+          <button
+            onClick={nextStep}
+            className="
+            bg-[#7c3aed]
+            hover:bg-[#6d28d9]
+            text-white
+            px-8
+            py-4
+            rounded-2xl
+            font-medium
+            transition
+            "
+          >
+
+            {currentStep === steps.length - 1
+              ? "Completed"
+              : "Next Step →"}
+
+          </button>
+
+        </div>
 
       </div>
 
     </div>
-  )
+  );
 }
 
-export default Assessment
+export default Assessment;

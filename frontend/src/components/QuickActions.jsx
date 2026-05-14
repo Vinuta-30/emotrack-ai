@@ -1,61 +1,78 @@
+import {
+  FiClipboard,
+  FiBarChart2,
+  FiTrendingUp,
+  FiActivity,
+} from "react-icons/fi";
+
 function QuickActions() {
 
   const actions = [
     {
       title: "Start Assessment",
-      desc: "Begin your wellness analysis",
-      emoji: "📝",
-      color: "bg-purple-50",
+      desc: "Begin emotional wellness analysis",
+      icon: <FiClipboard />,
+      bg: "bg-[#f5efff]",
     },
 
     {
       title: "View Results",
       desc: "Check your latest insights",
-      emoji: "📊",
-      color: "bg-green-50",
+      icon: <FiBarChart2 />,
+      bg: "bg-[#eefbf3]",
     },
 
     {
       title: "AI Recommendations",
       desc: "Personalized wellness guidance",
-      emoji: "✨",
-      color: "bg-blue-50",
+      icon: <FiActivity />,
+      bg: "bg-[#eef4ff]",
     },
 
     {
-      title: "Learn & Explore",
-      desc: "Mental wellness resources",
-      emoji: "📚",
-      color: "bg-orange-50",
+      title: "Track Progress",
+      desc: "Monitor emotional patterns",
+      icon: <FiTrendingUp />,
+      bg: "bg-[#fff5ea]",
     },
-  ]
+  ];
 
   return (
-    <div className="mt-12">
 
-      <h2 className="text-2xl font-bold text-gray-800">
+    <div>
+
+      <h2 className="text-[22px] font-semibold text-gray-900 mb-4">
         Quick Actions
       </h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mt-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
 
         {actions.map((item, index) => (
 
           <div
             key={index}
-            className={`${item.color} rounded-3xl p-6 shadow-sm hover:shadow-md transition cursor-pointer`}
+            className={`${item.bg}
+            rounded-[22px]
+            p-5
+            border border-white`}
           >
 
-            <div className="text-3xl">
-              {item.emoji}
+            <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-[#7c3aed] text-[18px]">
+
+              {item.icon}
+
             </div>
 
-            <h3 className="mt-4 text-lg font-semibold text-gray-800">
+            <h3 className="mt-4 text-[15px] font-semibold text-gray-800">
+
               {item.title}
+
             </h3>
 
-            <p className="mt-2 text-gray-500">
+            <p className="mt-2 text-[13px] leading-6 text-gray-500">
+
               {item.desc}
+
             </p>
 
           </div>
@@ -65,7 +82,7 @@ function QuickActions() {
       </div>
 
     </div>
-  )
+  );
 }
 
-export default QuickActions
+export default QuickActions;

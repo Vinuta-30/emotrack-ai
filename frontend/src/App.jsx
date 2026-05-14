@@ -4,31 +4,52 @@ import Sidebar from "./components/Sidebar";
 
 import Dashboard from "./pages/Dashboard";
 import Assessment from "./pages/Assessment";
-import FaceAnalysis from "./pages/FaceAnalysis";
+import Results from "./pages/Results";
+import Recommendations from "./pages/Recommendations";
+import History from "./pages/History";
 
 function App() {
 
   return (
 
-    <div className="flex bg-[#f7f8fc] min-h-screen">
+    <div className="flex min-h-screen bg-[#f8f8fc]">
 
+      {/* SIDEBAR */}
       <Sidebar />
 
-      <div className="flex-1 overflow-y-auto p-6">
+      {/* MAIN CONTENT */}
+      <main className="flex-1 px-8 py-6 overflow-y-auto">
 
         <Routes>
 
           <Route path="/" element={<Dashboard />} />
 
-          <Route path="/assessment" element={<Assessment />} />
+          <Route
+            path="/assessment"
+            element={<Assessment />}
+          />
 
-          <Route path="/face-analysis" element={<FaceAnalysis />} />
+          <Route
+            path="/results"
+            element={<Results />}
+          />
+
+          <Route
+            path="/recommendations"
+            element={<Recommendations />}
+          />
+
+          <Route
+            path="/history"
+            element={<History />}
+          />
 
         </Routes>
 
-      </div>
+      </main>
 
     </div>
+
   );
 }
 

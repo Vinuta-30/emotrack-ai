@@ -12,9 +12,21 @@ import {
 import { NavLink } from "react-router-dom";
 
 function Sidebar() {
+
+  const navItems = [
+    ["Dashboard", "/", <FiHome />],
+    ["Assessment", "/assessment", <FiClipboard />],
+    ["Results", "/results", <FiHeart />],
+    ["Recommendations", "/recommendations", <FiHeart />],
+    ["History", "/history", <FiClock />],
+    ["Insights", "/insights", <FiBarChart2 />],
+    ["Profile", "/profile", <FiUser />],
+    ["Settings", "/settings", <FiSettings />],
+  ];
+
   return (
 
-    <div className="w-[240px] h-screen bg-white border-r border-gray-200 flex flex-col justify-between px-5 py-8">
+    <div className="w-[220px] min-w-[220px] h-screen bg-white border-r border-[#f1f1f4] flex flex-col justify-between px-4 py-6">
 
       {/* TOP */}
       <div>
@@ -22,150 +34,72 @@ function Sidebar() {
         {/* LOGO */}
         <div className="mb-10">
 
-          <h1 className="text-2xl font-bold text-purple-600">
-            EmoTrack AI
+          <h1 className="text-[28px] font-bold text-[#7c3aed] leading-none">
+            EmoTrack
           </h1>
 
-          <p className="text-gray-400 text-sm mt-1 leading-5">
-            Emotional Wellness Platform
+          <p className="text-[13px] text-gray-400 mt-2">
+            emotional wellness
           </p>
 
         </div>
 
         {/* NAVIGATION */}
-        <div className="flex flex-col gap-2">
+        <div className="space-y-1">
 
-          <NavLink
-            to="/"
-            className={({ isActive }) =>
-              `flex items-center gap-3 px-4 py-2.5 rounded-2xl transition font-medium ${
-                isActive
-                  ? "bg-[#f3edff] text-[#7c3aed]"
-                  : "text-gray-500 hover:bg-gray-100"
-              }`
-            }
-          >
-            <FiHome size={18} />
-            Dashboard
-          </NavLink>
+          {navItems.map(([label, path, icon]) => (
 
-          <NavLink
-            to="/assessment"
-            className={({ isActive }) =>
-              `flex items-center gap-3 px-4 py-2.5 rounded-2xl transition font-medium ${
-                isActive
-                  ? "bg-[#f3edff] text-[#7c3aed]"
-                  : "text-gray-500 hover:bg-gray-100"
-              }`
-            }
-          >
-            <FiClipboard size={18} />
-            Assessment
-          </NavLink>
+            <NavLink
+              key={label}
+              to={path}
+              className={({ isActive }) =>
+                `flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all ${
+                  isActive
+                    ? "bg-[#f4eeff] text-[#7c3aed] font-medium"
+                    : "text-gray-500 hover:bg-[#faf8ff]"
+                }`
+              }
+            >
 
-          <NavLink
-            to="/results"
-            className={({ isActive }) =>
-              `flex items-center gap-3 px-4 py-2.5 rounded-2xl transition font-medium ${
-                isActive
-                  ? "bg-[#f3edff] text-[#7c3aed]"
-                  : "text-gray-500 hover:bg-gray-100"
-              }`
-            }
-          >
-            <FiHeart size={18} />
-            Results
-          </NavLink>
+              <span className="text-[18px]">
+                {icon}
+              </span>
 
-          <NavLink
-            to="/recommendations"
-            className={({ isActive }) =>
-              `flex items-center gap-3 px-4 py-2.5 rounded-2xl transition font-medium ${
-                isActive
-                  ? "bg-[#f3edff] text-[#7c3aed]"
-                  : "text-gray-500 hover:bg-gray-100"
-              }`
-            }
-          >
-            <FiHeart size={18} />
-            Recommendations
-          </NavLink>
+              <span className="text-[15px]">
+                {label}
+              </span>
 
-          <NavLink
-            to="/history"
-            className={({ isActive }) =>
-              `flex items-center gap-3 px-4 py-2.5 rounded-2xl transition font-medium ${
-                isActive
-                  ? "bg-[#f3edff] text-[#7c3aed]"
-                  : "text-gray-500 hover:bg-gray-100"
-              }`
-            }
-          >
-            <FiClock size={18} />
-            History
-          </NavLink>
+            </NavLink>
 
-          <NavLink
-            to="/insights"
-            className={({ isActive }) =>
-              `flex items-center gap-3 px-4 py-2.5 rounded-2xl transition font-medium ${
-                isActive
-                  ? "bg-[#f3edff] text-[#7c3aed]"
-                  : "text-gray-500 hover:bg-gray-100"
-              }`
-            }
-          >
-            <FiBarChart2 size={18} />
-            Insights
-          </NavLink>
-
-          <NavLink
-            to="/profile"
-            className={({ isActive }) =>
-              `flex items-center gap-3 px-4 py-2.5 rounded-2xl transition font-medium ${
-                isActive
-                  ? "bg-[#f3edff] text-[#7c3aed]"
-                  : "text-gray-500 hover:bg-gray-100"
-              }`
-            }
-          >
-            <FiUser size={18} />
-            Profile
-          </NavLink>
-
-          <NavLink
-            to="/settings"
-            className={({ isActive }) =>
-              `flex items-center gap-3 px-4 py-2.5 rounded-2xl transition font-medium ${
-                isActive
-                  ? "bg-[#f3edff] text-[#7c3aed]"
-                  : "text-gray-500 hover:bg-gray-100"
-              }`
-            }
-          >
-            <FiSettings size={18} />
-            Settings
-          </NavLink>
+          ))}
 
         </div>
+
       </div>
 
       {/* BOTTOM */}
       <div>
 
-        <div className="bg-[#f6f0ff] rounded-[24px] p-4 mb-5">
+        {/* MOTIVATION CARD */}
+        <div className="bg-[#f6f2ff] rounded-2xl p-4 mb-5">
 
-          <p className="text-sm text-purple-500 leading-6">
+          <p className="text-[13px] leading-6 text-[#7c3aed]">
+
             Small steps today,
-            better mental wellness tomorrow 💜
+            better wellness tomorrow 💜
+
           </p>
 
         </div>
 
-        <button className="flex items-center gap-3 text-gray-500 hover:text-purple-600 transition">
+        {/* LOGOUT */}
+        <button className="flex items-center gap-3 text-gray-500 hover:text-[#7c3aed] transition">
 
-          <FiLogOut size={18} />
-          Logout
+          <FiLogOut className="text-[18px]" />
+
+          <span className="text-[15px]">
+            Logout
+          </span>
 
         </button>
 

@@ -1,34 +1,45 @@
 function HeroSection() {
   return (
-    <div className="mt-10 bg-gradient-to-r from-purple-50 to-purple-100 rounded-[32px] px-10 py-8 flex items-center justify-between shadow-sm">
 
-      <div className="max-w-2xl">
+    <div className="bg-[#efe8ff] rounded-[32px] px-10 py-6 flex items-center justify-between overflow-hidden">
 
-        <h2 className="text-4xl xl:text-5xl font-bold text-gray-800 leading-tight">
-          Understand. Analyze. Improve.
-        </h2>
+      {/* LEFT SIDE */}
+      <div className="max-w-[520px]">
 
-        <p className="mt-5 text-gray-600 text-lg leading-relaxed">
-          EmoTrack AI analyzes multiple behavioral and physiological
-          parameters to provide meaningful emotional wellness insights.
+        <p className="text-sm text-purple-500 font-medium mb-3">
+          Emotional Wellness Platform
         </p>
 
-        <button className="mt-7 bg-purple-600 hover:bg-purple-700 transition text-white px-7 py-3 rounded-2xl text-lg font-medium shadow-md">
-          Start New Assessment →
+        <h1 className="text-[36px] leading-[44px] font-bold text-gray-800">
+          Understand your emotions with AI-powered insights
+        </h1>
+
+        <p className="text-gray-500 mt-5 leading-7">
+          Analyze facial expressions, voice, typing behavior,
+          and pulse data to better understand your emotional wellness.
+        </p>
+
+        <button className="mt-6 bg-[#7c3aed] hover:bg-[#6d28d9] text-white px-6 py-3 rounded-2xl transition font-medium shadow-sm">
+          Start Assessment
         </button>
 
       </div>
 
+      {/* RIGHT SIDE */}
       <div className="hidden lg:flex items-center justify-center">
 
-        <div className="w-56 h-56 rounded-full bg-purple-200 flex items-center justify-center text-7xl">
-          🧘
+        <div className="w-[200px] h-[200px] rounded-full bg-[#dccfff] flex items-center justify-center">
+
+          <div className="text-[90px]">
+            🧘
+          </div>
+
         </div>
 
       </div>
 
     </div>
-  )
+  );
 }
 
-export default HeroSection
+export default HeroSection;

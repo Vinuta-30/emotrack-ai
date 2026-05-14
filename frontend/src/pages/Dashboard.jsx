@@ -5,17 +5,17 @@ import QuickActions from "../components/QuickActions"
 
 function Dashboard() {
   return (
-    <div className="flex-1 overflow-y-auto p-10 py-8 max-w-[1600px] mx-auto w-full ">
+    <div className="max-w-[1350px] mx-auto space-y-8">
 
-      <Topbar />
+  <Topbar />
 
-      <HeroSection />
+  <HeroSection />
 
-      <FeatureCards />
+  <FeatureCards />
 
-      <QuickActions />
+  <QuickActions />
 
-    </div>
+</div>
   )
 }
 

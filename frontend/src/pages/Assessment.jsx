@@ -71,31 +71,75 @@ const startCamera = async () => {
       videoRef.current.srcObject = stream;
     }
 
+  } catch (error) {
+
+    console.log(error);
+
+  }
+
+};
+
+const detectEmotion = async () => {
+
+  try {
+
     setAnalyzing(true);
 
-    setTimeout(() => {
+    const canvas = document.createElement("canvas");
 
-  const emotions = [
-    { mood: "Happy 😊", confidence: "92%" },
-    { mood: "Neutral 😐", confidence: "87%" },
-    { mood: "Sad 😔", confidence: "84%" },
-    { mood: "Angry 😠", confidence: "89%" },
-    { mood: "Surprised 😲", confidence: "91%" },
-  ];
+    canvas.width = videoRef.current.videoWidth;
+    canvas.height = videoRef.current.videoHeight;
 
-  const randomEmotion =
-    emotions[Math.floor(Math.random() * emotions.length)];
+    const ctx = canvas.getContext("2d");
 
-  setEmotion(randomEmotion.mood);
-  setConfidence(randomEmotion.confidence);
+    ctx.drawImage(
+      videoRef.current,
+      0,
+      0,
+      canvas.width,
+      canvas.height
+    );
 
-  setAnalyzing(false);
+    const image = canvas.toDataURL("image/jpeg");
 
-}, 3000);
+    const response = await fetch(
+      "http://127.0.0.1:5000/detect-emotion",
+      {
+        method: "POST",
+
+        headers: {
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify({
+          image,
+        }),
+      }
+    );
+
+    const data = await response.json();
+
+    console.log(data);
+
+    if (data.predictions?.length > 0) {
+
+      setEmotion(data.predictions[0].emotion);
+
+      setConfidence(
+        `${Math.round(
+          data.predictions[0].confidence * 100
+        )}%`
+      );
+
+    }
+
+    setAnalyzing(false);
 
   } catch (error) {
 
     console.log(error);
+
+    setAnalyzing(false);
 
   }
 
@@ -226,23 +270,43 @@ const startCamera = async () => {
 
       </div>
 
-      <button
-        onClick={startCamera}
-        className="
-        mt-6
-        bg-[#7c3aed]
-        hover:bg-[#6d28d9]
-        text-white
-        px-6
-        py-3
-        rounded-2xl
-        font-medium
-        "
-      >
+      <div className="flex gap-4 mt-6">
 
-        Start Camera
+  <button
+    onClick={startCamera}
+    className="
+    bg-[#7c3aed]
+    hover:bg-[#6d28d9]
+    text-white
+    px-6
+    py-3
+    rounded-2xl
+    font-medium
+    "
+  >
 
-      </button>
+    Start Camera
+
+  </button>
+
+  <button
+    onClick={detectEmotion}
+    className="
+    bg-black
+    hover:bg-gray-800
+    text-white
+    px-6
+    py-3
+    rounded-2xl
+    font-medium
+    "
+  >
+
+    Detect Emotion
+
+  </button>
+
+</div>
       {analyzing && (
 
   <div className="mt-6 bg-[#f8f8fc] rounded-2xl p-5">

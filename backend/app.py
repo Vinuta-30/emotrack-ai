@@ -28,21 +28,23 @@ def test_model():
     return {
         "status": "Model Loaded Successfully ✅"
     }
-@app.route("/detect-emotion")
+@app.route("/detect-emotion", methods=["POST"])
 def detect():
 
+    from flask import request
     import cv2
+    import numpy as np
+    import base64
 
-    cap = cv2.VideoCapture(0)
+    data = request.json["image"]
 
-    ret, frame = cap.read()
+    image_data = data.split(",")[1]
 
-    cap.release()
+    image_bytes = base64.b64decode(image_data)
 
-    if not ret:
-        return {
-            "error": "Camera not accessible"
-        }
+    np_arr = np.frombuffer(image_bytes, np.uint8)
+
+    frame = cv2.imdecode(np_arr, cv2.IMREAD_COLOR)
 
     results = detect_emotion(frame)
 

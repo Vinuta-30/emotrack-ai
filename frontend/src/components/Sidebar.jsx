@@ -10,6 +10,7 @@ import {
 } from "react-icons/fi";
 
 import { NavLink } from "react-router-dom";
+import { FaBrain } from "react-icons/fa";
 
 function Sidebar() {
 
@@ -34,13 +35,40 @@ function Sidebar() {
         {/* LOGO */}
         <div className="mb-10">
 
-          <h1 className="text-[28px] font-bold text-[#7c3aed] leading-none">
-            EmoTrack
-          </h1>
+          <div className="flex items-center gap-3">
 
-          <p className="text-[13px] text-gray-400 mt-2">
-            emotional wellness
-          </p>
+  <div className="
+    w-12
+    h-12
+    rounded-2xl
+    bg-[#f3edff]
+    flex
+    items-center
+    justify-center
+  ">
+
+    <FaBrain
+  size={28}
+  className="text-[#7c3aed]"
+/>
+
+  </div>
+
+  <div>
+
+    <h1 className="text-4xl font-bold text-[#7c3aed]">
+      EmoTrack
+    </h1>
+
+    <p className="text-gray-400 text-sm mt-1">
+      emotional wellness
+    </p>
+
+  </div>
+
+</div>
+
+         
 
         </div>
 

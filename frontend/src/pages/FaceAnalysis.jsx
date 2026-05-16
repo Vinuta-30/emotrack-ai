@@ -19,11 +19,25 @@ function FaceAnalysis() {
 
       if (data.predictions.length > 0) {
 
-        setEmotion(data.predictions[0].emotion);
+        const detectedEmotion =
+  data.predictions[0].emotion;
 
-        setConfidence(
-          (data.predictions[0].confidence * 100).toFixed(2)
-        );
+const detectedConfidence =
+  `${(data.predictions[0].confidence * 100).toFixed(2)}%`;
+
+setEmotion(detectedEmotion);
+
+setConfidence(detectedConfidence);
+
+localStorage.setItem(
+  "emotion",
+  detectedEmotion
+);
+
+localStorage.setItem(
+  "confidence",
+  detectedConfidence
+);
 
       } else {
 
